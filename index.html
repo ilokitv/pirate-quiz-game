@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивная игра День победы</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="name-screen" class="name-screen">
+        <div class="name-container">
+            <h2>Добро пожаловать в игру!</h2>
+            <p>Введите ваше имя:</p>
+            <input type="text" id="player-name" placeholder="Ваше имя" maxlength="20">
+            <button id="start-game" class="btn">Начать игру</button>
+            <button id="show-leaderboard" class="btn">Таблица лидеров</button>
+        </div>
+    </div>
+
+    <div id="leaderboard-screen" class="leaderboard-screen" style="display: none;">
+        <div class="leaderboard-container">
+            <h2>Таблица лидеров</h2>
+            <table id="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Место</th>
+                        <th>Имя</th>
+                        <th>Время</th>
+                        <th>Дата</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body"></tbody>
+            </table>
+            <button id="back-to-name" class="btn">Назад</button>
+        </div>
+    </div>
+
+    <div id="loading-screen" class="loading-screen" style="display: none;">
+        <div class="loader">
+            <div class="star-loader"></div>
+        </div>
+        <div class="loading-text">Загрузка...</div>
+    </div>
+    <div class="game-container" style="display: none;">
+        <div class="game-header">
+            <h1>Интерактивная игра «День победы»</h1>
+            <div class="game-info">
+                <span>Текущая позиция: <span id="position">1</span></span>
+                <span class="timer">Время: <span id="timer">00:00</span></span>
+            </div>
+        </div>
+        
+        <div class="game-board">
+            <canvas id="gameCanvas"></canvas>
+        </div>
+
+        <div class="game-controls">
+            <button id="rollDice" class="btn">Бросить кубик</button>
+            <div id="diceResult" class="dice">?</div>
+        </div>
+
+        <div id="questionModal" class="modal">
+            <div class="modal-content">
+                <h2>Вопрос</h2>
+                <p id="questionText"></p>
+                <div id="answerButtons" class="answer-buttons"></div>
+            </div>
+        </div>
+
+        <div class="legend">
+            <h3>Особенные поля:</h3>
+            <ul>
+                <li><span class="legend-item forward"></span> — продвинься по стрелке вперёд</li>
+                <li><span class="legend-item backward"></span> — вернись по стрелке назад</li>
+                <li><span class="legend-item task"></span> — вернись на 3 клетки назад</li>
+            </ul>
+        </div>
+    </div>
+    <script src="game.js"></script>
+    <script>
+        // Скрываем экран загрузки после загрузки всех ресурсов
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.opacity = '0';
+                document.querySelector('.game-container').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 500);
+            }, 1500); // Показываем загрузку минимум 1.5 секунды
+        });
+    </script>
+</body>
+</html>
